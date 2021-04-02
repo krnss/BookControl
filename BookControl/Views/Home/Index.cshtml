@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@using BookControl.Models
+@model IEnumerable<BookView>
+
+
+<p>
+    <input type="text" name="search" value="" id="search" />
+    <input type="button" name="name" value="search" onclick="Search()"/>
+</p>
+<table class="table" id="myTable">
+    <tr>
+        <th onclick="SortTable(0,true)">
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th onclick="SortTable(1,false)">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th onclick="SortTable(2,false)">
+            @Html.DisplayNameFor(model => model.Autor)
+        </th>
+        <th onclick="SortTable(3, false)">
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th onclick="SortTable(4,true)">
+            @Html.DisplayNameFor(model => model.Prise)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.Prise)</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script src="~/Scripts/MyScript/WorkWithTable.js"></script>
+
+
