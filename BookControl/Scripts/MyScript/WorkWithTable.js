@@ -75,3 +75,22 @@ function Search() {
         }
     }    
 }
+
+function DeleteBook(id) {
+
+    var rows = document.getElementById("myTable").getElementsByTagName("TR");
+    for (i = 1; i < rows.length; i++) {
+
+        if (rows[i].getElementsByTagName("TD")[0].innerHTML == id) {
+            rows[i].remove();
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Home/DeleteAsync",
+            data: { 'id': id },
+            success: function () {
+                console.log("Deleted " + id);
+            }
+        });
+    }   
+}

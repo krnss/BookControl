@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace BookControl.Controllers
 {
@@ -12,15 +13,14 @@ namespace BookControl.Controllers
     {
         BookContext db = new BookContext();
         public ActionResult Index()
-        {
-           
-            //db.Autors.Add(new Autor() { Name = "Ass", Surname = "Bor" });
+        { 
+           //db.Autors.Add(new Autor() { Name = "Ass", Surname = "Bor" });
             //db.Books.Add(new Book() { Name = "xest 002", AutorId = 1, Description = "qwertyqwertyqwertyqwerty", Prise = 200 });
             //db.Autors.Add(new Autor() { Name = "Mukola", Surname = "Bor" });
             //db.Books.Add(new Book() { Name = "foret", AutorId = 2, Description = "qwertyqwertyqwertyqwerty", Prise = 145 });
             //db.Books.Add(new Book() { Name = "Ser Tor", AutorId = 1, Description = "qwertyqwertyqwertyqwerty", Prise = 300 });
 
-           // db.SaveChanges();
+            //db.SaveChanges();
             var v = ToBookView(db.Books.ToList());
             return View(v);
         }
@@ -37,6 +37,13 @@ namespace BookControl.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public async Task DeleteAsync(int id)
+        {
+            Book book = await db.Books.FindAsync(id);
+            db.Books.Remove(book);
+            await db.SaveChangesAsync();
+
         }
 
         public List<BookView> ToBookView(List<Book> lb)
