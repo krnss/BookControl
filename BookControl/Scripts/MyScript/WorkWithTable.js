@@ -73,11 +73,5 @@ function Search() {
         else {
             rows[i].style.display = "none";
         }
-
-
-
-
-
     }    
-
 }
