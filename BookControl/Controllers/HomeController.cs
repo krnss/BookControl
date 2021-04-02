@@ -12,7 +12,8 @@ namespace BookControl.Controllers
     {
         BookContext db = new BookContext();
         public ActionResult Index()
-        {           
+        {
+           
             //db.Autors.Add(new Autor() { Name = "Ass", Surname = "Bor" });
             //db.Books.Add(new Book() { Name = "xest 002", AutorId = 1, Description = "qwertyqwertyqwertyqwerty", Prise = 200 });
             //db.Autors.Add(new Autor() { Name = "Mukola", Surname = "Bor" });
