@@ -24,5 +24,9 @@ namespace BookControl.Models
 
         [DataType(DataType.Currency)]
         public decimal Prise { get; set; }
+
+        public void Copy(string name, int autor, string description, decimal prise) =>
+            (Name, AutorId, Description, Prise) = (name,autor,description,prise);
+
     }
 }

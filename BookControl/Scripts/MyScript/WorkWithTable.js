@@ -94,22 +94,39 @@ function EditBook(id) {
     }   
 }
 function SaveBook(id) {
+    var datatext=[];
     var rows = document.getElementById("myTable").getElementsByTagName("TR");
+    datatext[0] = id;
 
     for (i = 1; i < rows.length; i++) {
         var td = rows[i].getElementsByTagName("TD");
-
+        
         if (td[0].innerHTML == id) {
             for (let j = 1; j < td.length - 1; j++) {
                 var text = td[j].firstChild.value;
                 td[j].removeChild(td[j].firstChild);
                 td[j].innerHTML = text;
+                datatext[j] = text;
             }
 
             var edit = td[5].getElementsByTagName("input")[0];
             edit.value = "Edit";
             edit.onclick = () => { EditBook(id) };
-        }
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/EditAsync",
+                data: {
+                    'id': id,
+                    'name': datatext[1],
+                    'autor': datatext[2],
+                    'description': datatext[3],
+                    'prise': datatext[4]
+                }
+            });
+
+            break;
+        }        
     }   
 }
 function DeleteBook(id) {
@@ -119,14 +136,13 @@ function DeleteBook(id) {
 
         if (rows[i].getElementsByTagName("TD")[0].innerHTML == id) {
             rows[i].remove();
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/DeleteAsync",
+                data: { 'id': id }            
+            });
         }
-        $.ajax({
-            type: "POST",
-            url: "/Home/DeleteAsync",
-            data: { 'id': id },
-            success: function () {
-                console.log("Deleted " + id);
-            }
-        });
+        
     }   
 }

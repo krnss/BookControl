@@ -5,13 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace BookControl.Controllers
 {
     
     public class HomeController : Controller
     {
-        static BookContext db = new BookContext();
+        BookContext db = new BookContext();
         public ActionResult Index()
         {
             //db.Autors.Add(new Autor() { Name = "Ass", Surname = "Bor" });
@@ -42,6 +43,16 @@ namespace BookControl.Controllers
         {
             Book book = await db.Books.FindAsync(id);
             db.Books.Remove(book);
+            await db.SaveChangesAsync();
+
+        }
+        public async Task EditAsync(int id,string name,string autor,string description,string prise)
+        {
+            var aid = db.Autors.Where(_ => _.Name+" "+_.Surname == autor).FirstOrDefault().Id;
+            decimal p = Convert.ToDecimal(prise);
+
+            db.Books.FindAsync(id).Result.Copy(name, aid, description, p);
+
             await db.SaveChangesAsync();
 
         }
