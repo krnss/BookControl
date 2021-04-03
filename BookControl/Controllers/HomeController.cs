@@ -11,10 +11,10 @@ namespace BookControl.Controllers
     
     public class HomeController : Controller
     {
-        BookContext db = new BookContext();
+        static BookContext db = new BookContext();
         public ActionResult Index()
-        { 
-           //db.Autors.Add(new Autor() { Name = "Ass", Surname = "Bor" });
+        {
+            //db.Autors.Add(new Autor() { Name = "Ass", Surname = "Bor" });
             //db.Books.Add(new Book() { Name = "xest 002", AutorId = 1, Description = "qwertyqwertyqwertyqwerty", Prise = 200 });
             //db.Autors.Add(new Autor() { Name = "Mukola", Surname = "Bor" });
             //db.Books.Add(new Book() { Name = "foret", AutorId = 2, Description = "qwertyqwertyqwertyqwerty", Prise = 145 });

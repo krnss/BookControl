@@ -75,7 +75,43 @@ function Search() {
         }
     }    
 }
+function EditBook(id) {
+    var rows = document.getElementById("myTable").getElementsByTagName("TR");
 
+    for (i = 1; i < rows.length; i++) {
+        var td = rows[i].getElementsByTagName("TD");
+        if (td[0].innerHTML == id) {
+            for (let j = 1; j < td.length-1; j++) {
+                var input = document.createElement('input');
+                input.value = td[j].innerHTML.trim();
+                td[j].innerHTML = "";
+                td[j].appendChild(input);
+            }
+            var edit = td[5].getElementsByTagName("input")[0];
+            edit.value = "Save";
+            edit.onclick = () => { SaveBook(id) };
+        }        
+    }   
+}
+function SaveBook(id) {
+    var rows = document.getElementById("myTable").getElementsByTagName("TR");
+
+    for (i = 1; i < rows.length; i++) {
+        var td = rows[i].getElementsByTagName("TD");
+
+        if (td[0].innerHTML == id) {
+            for (let j = 1; j < td.length - 1; j++) {
+                var text = td[j].firstChild.value;
+                td[j].removeChild(td[j].firstChild);
+                td[j].innerHTML = text;
+            }
+
+            var edit = td[5].getElementsByTagName("input")[0];
+            edit.value = "Edit";
+            edit.onclick = () => { EditBook(id) };
+        }
+    }   
+}
 function DeleteBook(id) {
 
     var rows = document.getElementById("myTable").getElementsByTagName("TR");
