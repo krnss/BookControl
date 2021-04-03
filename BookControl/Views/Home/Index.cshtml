@@ -5,10 +5,13 @@
 @model IEnumerable<BookView>
 
 
-<p>
-    <input type="text" name="search" value="" id="search" />
-    <input type="button" name="name" value="search" onclick="Search()"/>
-</p>
+<div class="input-group mb-3">
+    <input type="text"id="search" class="form-control" placeholder="Name">
+    <div class="input-group-btn">
+        <input type="button" name="name" value="Search" onclick="Search()" class="btn btn-success" />
+    </div>
+</div>
+
 <table class="table" id="myTable">
     <tr>
         <th onclick="SortTable(0,true)">
@@ -32,7 +35,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td scope="row">
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
@@ -47,10 +50,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Prise)
             </td>
-            <td>
-                <input type="button" id="Edit" value="Edit" onclick="EditBook(@item.Id)" /> |
-               
-                <input type="button" id="Delete" value="Delete" onclick="DeleteBook(@item.Id)" />
+            <td class="btn-group">
+                <input type="button" id="Edit" value="Edit" onclick="EditBook(@item.Id)" class="btn btn-info" />
+                <input type="button" id="Delete" value="Delete" onclick="DeleteBook(@item.Id)" class="btn btn-danger" />
             </td>
         </tr>
     }

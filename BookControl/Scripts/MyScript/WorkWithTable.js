@@ -14,31 +14,31 @@
 
             shouldSwitch = false;
 
-            x = rows[i].getElementsByTagName("TD")[n];
-            y = rows[i + 1].getElementsByTagName("TD")[n];
-
+            x = GetText(rows[i].getElementsByTagName("TD")[n]);
+            y = GetText(rows[i+1].getElementsByTagName("TD")[n]);           
+            
 
             if (dir == "asc") {
                 if (is_namber) {
-                    if (+x.innerHTML.replace(',', '.') > +y.innerHTML.replace(',', '.')) {
+                    if (+x.replace(',', '.') > +y.replace(',', '.')) {
                         shouldSwitch = true;
                         break;
                     }
 
                 }
-                else if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                else if (x.toLowerCase() > y.toLowerCase()) {
                     shouldSwitch = true;
                     break;
                 }
             }
             else if (dir == "desc") {
                 if (is_namber) {
-                    if (+x.innerHTML.replace(',', '.') < +y.innerHTML.replace(',', '.')) {
+                    if (+x.replace(',', '.') < +y.replace(',', '.')) {
                         shouldSwitch = true;
                         break;
                     }
                 }
-                else if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                else if (x.toLowerCase() < y.toLowerCase()) {
                     shouldSwitch = true;
                     break;
                 }
@@ -60,6 +60,12 @@
     }
 }
 
+function GetText(tdr) {
+    if (tdr.getElementsByTagName('input').length > 0 || tdr.getElementsByTagName('textarea').length > 0)
+        return tdr.firstChild.value.trim();
+    return tdr.innerHTML.trim();
+}
+
 function Search() {
     var rows, i, search;
 
@@ -76,14 +82,24 @@ function Search() {
     }    
 }
 function EditBook(id) {
+    var maxWidtharr = [ "150px", "150px", "150px", "350px", "100px"];
     var rows = document.getElementById("myTable").getElementsByTagName("TR");
 
     for (i = 1; i < rows.length; i++) {
         var td = rows[i].getElementsByTagName("TD");
         if (td[0].innerHTML == id) {
-            for (let j = 1; j < td.length-1; j++) {
-                var input = document.createElement('input');
+            for (let j = 1; j < td.length - 1; j++) {
+
+                var input = document.createElement('input');        
+                
+                if (j == 3) {
+                    input = document.createElement('textarea');
+                    input.style.minWidth = "250px"; 
+                }
+
+                input.style.maxWidth = maxWidtharr[j]; 
                 input.value = td[j].innerHTML.trim();
+
                 td[j].innerHTML = "";
                 td[j].appendChild(input);
             }
